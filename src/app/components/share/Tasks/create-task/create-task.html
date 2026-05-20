@@ -1,0 +1,118 @@
+<div class="create-task-container">
+  <mat-card class="create-task-card">
+    <mat-card-header class="custom-header">
+      <div class="header-content">
+        <div class="icon-wrapper">
+          <mat-icon class="header-icon">add_task</mat-icon>
+        </div>
+        <div class="title-wrapper">
+          <mat-card-title>Crear Tarea</mat-card-title>
+          <mat-card-subtitle>Asigna una nueva tarea al sistema</mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Campo Nombre -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre de la tarea</mat-label>
+          <input 
+            matInput 
+            type="text" 
+            formControlName="name" 
+            placeholder="Ingrese el nombre de la tarea">
+          <mat-icon matPrefix>assignment</mat-icon>
+          @if (createTaskForm.get('name')?.hasError('required')) {
+            <mat-error>
+              El nombre es requerido
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Campo Descripción -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea 
+            matInput 
+            formControlName="desciption" 
+            placeholder="Ingrese la descripción"
+            rows="4"></textarea>
+          <mat-icon matPrefix>description</mat-icon>
+          @if (createTaskForm.get('desciption')?.hasError('required')) {
+            <mat-error>
+              La descripción es requerida
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Campo Responsable (solo Admin) -->
+        @if (isAdmin) {
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Responsable</mat-label>
+            <mat-select formControlName="userId" panelClass="select-panel-down">
+              <mat-option value="" disabled>Seleccione un usuario</mat-option>
+              @for (user of users; track user.id) {
+                <mat-option [value]="user.id">
+                  <mat-icon>person</mat-icon>
+                  {{ user.name }}
+                </mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix>person_pin</mat-icon>
+            @if (createTaskForm.get('userId')?.hasError('required')) {
+              <mat-error>
+                Debe seleccionar un responsable
+              </mat-error>
+            }
+          </mat-form-field>
+        }
+
+        <!-- Mensaje de Error Global -->
+        @if (errorMessage) {
+          <div class="message-container error-container">
+            <mat-icon class="message-icon">error</mat-icon>
+            <span class="message-text">{{ errorMessage }}</span>
+          </div>
+        }
+
+        <!-- Mensaje de Éxito Global -->
+        @if (successMessage) {
+          <div class="message-container success-container">
+            <mat-icon class="message-icon">check_circle</mat-icon>
+            <span class="message-text">{{ successMessage }}</span>
+          </div>
+        }
+
+        <!-- Botones -->
+        <div class="button-group">
+          <button 
+            mat-raised-button 
+            color="primary"
+            type="submit"
+            class="btn-submit"
+            [disabled]="createTaskForm.invalid || loading">
+            @if (loading) {
+              <mat-spinner diameter="20" class="button-spinner"></mat-spinner>
+            }
+            @if (!loading) {
+              <mat-icon>add_task</mat-icon>
+            }
+            <span>{{ loading ? 'Creando...' : 'Crear Tarea' }}</span>
+          </button>
+          
+          <button 
+            mat-stroked-button 
+            type="button" 
+            class="btn-cancel" 
+            [routerLink]="isAdmin ? '/admin/tasks' : '/user/tasks'"
+            [disabled]="loading">
+            <mat-icon>cancel</mat-icon>
+            <span>Cancelar</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

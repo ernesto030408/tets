@@ -1,0 +1,147 @@
+<div class="list-users-container">
+  <mat-card class="list-users-card">
+    <mat-card-header class="custom-header">
+      <div class="header-content">
+        <div class="title-section">
+          <mat-icon class="header-icon">people</mat-icon>
+          <mat-card-title>Lista de Usuarios</mat-card-title>
+        </div>
+        <button 
+          mat-raised-button 
+          color="primary"
+          class="btn-create" 
+          routerLink="/createUser">
+          <mat-icon>add</mat-icon>
+          <span>Crear Usuario</span>
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Sección de filtros -->
+      <div class="filters-container">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Buscar por nombre</mat-label>
+          <input 
+            matInput 
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="filtrarUsuarios()"
+            placeholder="Escribe para buscar...">
+          <mat-icon matPrefix>search</mat-icon>
+          @if (searchTerm) {
+            <button 
+              matSuffix 
+              mat-icon-button 
+              (click)="searchTerm = ''; filtrarUsuarios()">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Filtrar por rol</mat-label>
+          <mat-select 
+            [(ngModel)]="selectedRole"
+            (selectionChange)="filtrarUsuarios()">
+            <mat-option value="">Todos los roles</mat-option>
+            <mat-option value="Admin">Admin</mat-option>
+            <mat-option value="User">User</mat-option>
+          </mat-select>
+          <mat-icon matPrefix>filter_list</mat-icon>
+        </mat-form-field>
+        
+        <button 
+          mat-stroked-button 
+          class="btn-clear-filters" 
+          (click)="limpiarFiltros()"
+          matTooltip="Limpiar todos los filtros">
+          <mat-icon>clear_all</mat-icon>
+          <span>Limpiar filtros</span>
+        </button>
+      </div>
+
+      <!-- Contador de resultados -->
+      <div class="results-info">
+        <mat-icon>info</mat-icon>
+        <span>Mostrando <strong>{{ usuariosFiltrados.length }}</strong> de <strong>{{ listaUsuarios.length }}</strong> usuarios</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Tabla de usuarios -->
+      <div class="table-container">
+        @if (usuariosFiltrados.length > 0) {
+          <table class="users-table-custom">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (usuario of usuariosFiltrados; track usuario.id) {
+                <tr class="row">
+                  <td>{{ usuario.id }}</td>
+                  <td>{{ usuario.name }}</td>
+                  <td>
+                    <span 
+                      class="chip"
+                      [class.chip-admin]="usuario.role === 'Admin'"
+                      [class.chip-user]="usuario.role === 'User'">
+                      <mat-icon>{{ usuario.role === 'Admin' ? 'admin_panel_settings' : 'person' }}</mat-icon>
+                      {{ usuario.role }}
+                    </span>
+                  </td>
+                  <td class="actions-cell">
+                    <button 
+                      mat-mini-fab 
+                      color="primary"
+                      class="btn-action btn-edit" 
+                      [routerLink]="['/update', usuario.id]"
+                      matTooltip="Editar usuario">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button 
+                      mat-mini-fab 
+                      color="warn"
+                      class="btn-action btn-delete" 
+                      (click)="delete(usuario.id)"
+                      matTooltip="Eliminar usuario">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+
+        @if (usuariosFiltrados.length === 0 && listaUsuarios.length > 0) {
+          <div class="empty-state">
+            <mat-icon class="empty-icon">search_off</mat-icon>
+            <h3>No se encontraron usuarios</h3>
+            <p>No hay usuarios que coincidan con los filtros aplicados</p>
+            <button mat-raised-button color="primary" (click)="limpiarFiltros()">
+              Limpiar filtros
+            </button>
+          </div>
+        }
+
+        @if (listaUsuarios.length === 0) {
+          <div class="empty-state">
+            <mat-icon class="empty-icon">person_off</mat-icon>
+            <h3>No hay usuarios registrados</h3>
+            <p>Comienza creando tu primer usuario</p>
+            <button mat-raised-button color="primary" routerLink="/createUser">
+              <mat-icon>add</mat-icon>
+              Crear Usuario
+            </button>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,188 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  height: 70px !important;
+  padding: 0 !important;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+}
+
+.brand-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.navbar-brand h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, #ffffff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px;
+  padding: 8px 20px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.nav-link mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+}
+
+.nav-link.active-link {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.btn-logout {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  margin-left: 8px !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.btn-logout mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.btn-logout:hover:not([disabled]) {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.mobile-menu-button {
+  display: none;
+  color: white !important;
+}
+
+.mobile-menu-button mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+/* Estilos para el menú móvil */
+::ng-deep .mobile-menu {
+  margin-top: 8px;
+}
+
+::ng-deep .mobile-menu .mat-mdc-menu-content {
+  padding: 8px 0 !important;
+}
+
+::ng-deep .mobile-menu .mat-mdc-menu-item {
+  min-height: 48px !important;
+  padding: 0 16px !important;
+}
+
+::ng-deep .mobile-menu .mat-mdc-menu-item mat-icon {
+  margin-right: 16px;
+  color: #667eea;
+}
+
+::ng-deep .mobile-menu .mat-mdc-menu-item.active-menu-item {
+  background-color: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  font-weight: 600;
+}
+
+::ng-deep .mobile-menu .mat-divider {
+  margin: 8px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    height: 64px !important;
+  }
+
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .navbar-brand h1 {
+    font-size: 18px;
+  }
+
+  .brand-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .navbar-menu {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand h1 {
+    font-size: 16px;
+  }
+  
+  .navbar-container {
+    padding: 0 12px;
+  }
+}

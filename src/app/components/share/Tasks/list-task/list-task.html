@@ -1,0 +1,175 @@
+<div class="list-tasks-container">
+  <mat-card class="list-tasks-card">
+    <mat-card-header class="custom-header">
+      <div class="header-content">
+        <div class="title-section">
+          <mat-icon class="header-icon">task_alt</mat-icon>
+          <mat-card-title>Lista de Tareas</mat-card-title>
+        </div>
+        <button 
+          mat-raised-button 
+          color="primary"
+          class="btn-create" 
+          [routerLink]="isAdmin ? '/admin/createTask' : '/user/createTask'">
+          <mat-icon>add_task</mat-icon>
+          <span>Asignar Tarea</span>
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Sección de filtros -->
+      <div class="filters-container">
+        <mat-form-field appearance="outline" class="filter-field search-field">
+          <mat-label>Buscar por nombre o descripción</mat-label>
+          <input 
+            matInput 
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="filtrarTareas()"
+            placeholder="Escribe para buscar...">
+          <mat-icon matPrefix>search</mat-icon>
+          @if (searchTerm) {
+            <button 
+              matSuffix 
+              mat-icon-button 
+              (click)="searchTerm = ''; filtrarTareas()">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Filtrar por estado</mat-label>
+          <mat-select 
+            [(ngModel)]="selectedStatus"
+            (selectionChange)="filtrarTareas()">
+            <mat-option value="">Todos los estados</mat-option>
+            <mat-option value="pendiente">Pendiente</mat-option>
+            <mat-option value="En Progreso">En Progreso</mat-option>
+            <mat-option value="Completada">Completada</mat-option>
+          </mat-select>
+          <mat-icon matPrefix>filter_list</mat-icon>
+        </mat-form-field>
+        
+        <button 
+          mat-stroked-button 
+          class="btn-clear-filters" 
+          (click)="limpiarFiltros()"
+          matTooltip="Limpiar todos los filtros">
+          <mat-icon>clear_all</mat-icon>
+          <span>Limpiar filtros</span>
+        </button>
+      </div>
+
+      <!-- Contador de resultados -->
+      <div class="results-info">
+        <mat-icon>info</mat-icon>
+        <span>Mostrando <strong>{{ tareasFiltradas.length }}</strong> de <strong>{{ listaTareas.length }}</strong> tareas</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Tabla de tareas -->
+      <div class="table-container">
+        @if (tareasFiltradas.length > 0) {
+          <table class="tasks-table-custom">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (tarea of tareasFiltradas; track tarea.id) {
+                <tr class="row">
+                  <td>{{ tarea.id }}</td>
+                  <td>
+                    <div class="task-name">
+                      <mat-icon class="task-icon">assignment</mat-icon>
+                      {{ tarea.name }}
+                    </div>
+                  </td>
+                  <td class="description-cell">{{ tarea.description }}</td>
+                  <td>
+                    <span 
+                      class="chip"
+                      [class.chip-completed]="tarea.status === 'Completada'"
+                      [class.chip-pending]="tarea.status === 'pendiente'"
+                      [class.chip-progress]="tarea.status === 'En Progreso'">
+                      <mat-icon>
+                        @if (tarea.status === 'Completada') {
+                          check_circle
+                        } @else if (tarea.status === 'En Progreso') {
+                          sync
+                        } @else {
+                          schedule
+                        }
+                      </mat-icon>
+                      {{ tarea.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="user-info">
+                      <mat-icon class="user-icon">person</mat-icon>
+                      {{ getName(tarea.userId) }}
+                    </div>
+                  </td>
+                  <td class="actions-cell">
+                    <button 
+                      mat-mini-fab 
+                      color="primary"
+                      class="btn-action btn-edit" 
+                      [routerLink]="isAdmin ? ['/admin/updateTask', tarea.id] : ['/user/updateTask', tarea.id]"
+                      matTooltip="Editar tarea">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button 
+                      mat-mini-fab 
+                      color="warn"
+                      class="btn-action btn-delete" 
+                      (click)="delete(tarea.id)"
+                      matTooltip="Eliminar tarea">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+
+        @if (tareasFiltradas.length === 0 && listaTareas.length > 0) {
+          <div class="empty-state">
+            <mat-icon class="empty-icon">search_off</mat-icon>
+            <h3>No se encontraron tareas</h3>
+            <p>No hay tareas que coincidan con los filtros aplicados</p>
+            <button mat-raised-button color="primary" (click)="limpiarFiltros()">
+              <mat-icon>clear_all</mat-icon>
+              Limpiar filtros
+            </button>
+          </div>
+        }
+
+        @if (listaTareas.length === 0) {
+          <div class="empty-state">
+            <mat-icon class="empty-icon">assignment_late</mat-icon>
+            <h3>No hay tareas asignadas</h3>
+            <p>Comienza asignando tu primera tarea</p>
+            <button 
+              mat-raised-button 
+              color="primary" 
+              [routerLink]="isAdmin ? '/admin/createTask' : '/user/createTask'">
+              <mat-icon>add_task</mat-icon>
+              Asignar Tarea
+            </button>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

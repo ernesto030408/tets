@@ -1,0 +1,122 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "password": "123",
+      "role": "Admin"
+    },
+    {
+      "id": "1768166509869",
+      "name": "nae",
+      "email": "",
+      "password": "$2b$10$CNKmvkBiHdIOoywK6t.mzOTlc.ogowAvrf3yVtfWk76blEDxrOyOu",
+      "role": "Admin",
+      "createdAt": "2026-01-11T21:21:49.869Z",
+      "updatedAt": "2026-05-04T21:51:17.952Z"
+    },
+    {
+      "id": "1768251428626",
+      "name": "dabi",
+      "email": "",
+      "password": "$2b$10$YciX.ENlTl6bwMu2DjTm0epgXgDnWJbdI7MogLdaJ1IW7m5cQJUmC",
+      "role": "User",
+      "createdAt": "2026-01-12T20:57:08.626Z",
+      "updatedAt": "2026-01-14T00:24:26.415Z"
+    },
+    {
+      "id": "1768350307034",
+      "name": "User",
+      "email": "",
+      "password": "$2b$10$rbknttX4t7c8N47dVW8zEu0FCQWX0qXr2zBGaLrVgBGYEkAggNiOG",
+      "role": "User",
+      "createdAt": "2026-01-14T00:25:07.034Z"
+    },
+    {
+      "id": "1768423084770",
+      "name": "amor",
+      "email": "",
+      "password": "$2b$10$S6HntHTvuirfgmfVH8CdZ.L0yXR69ybi8QH0hHrAKMA08cevf9l8C",
+      "role": "User",
+      "createdAt": "2026-01-14T20:38:04.770Z"
+    },
+    {
+      "id": "1777931522606",
+      "name": "asdasd",
+      "email": "",
+      "password": "$2b$10$aW3w4XCrqXi6uXHN9YGZ2.aMR3wBlJM.cM.kgjmO5d94UUDtXE9wS",
+      "role": "User",
+      "createdAt": "2026-05-04T21:52:02.606Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "name": "prueba",
+      "description": "una prueba",
+      "status": "En Progreso",
+      "userId": "1",
+      "updatedAt": "2026-05-04T21:51:46.822Z"
+    },
+    {
+      "id": "1768182566763",
+      "name": "swwwqqq",
+      "description": "wwwwqqq",
+      "status": "Completada",
+      "priority": "medium",
+      "userId": "1768166509869",
+      "createdAt": "2026-01-12T01:49:26.763Z",
+      "updatedAt": "2026-01-13T22:15:35.173Z"
+    },
+    {
+      "id": "1768251489044",
+      "name": "ultima prueba",
+      "description": "ultima prueba",
+      "status": "En Progreso",
+      "priority": "medium",
+      "userId": "1768251428626",
+      "createdAt": "2026-01-12T20:58:09.044Z",
+      "updatedAt": "2026-01-13T13:51:45.832Z"
+    },
+    {
+      "id": "1768253148890",
+      "name": "rrr",
+      "description": "eee",
+      "status": "pendiente",
+      "priority": "medium",
+      "userId": "1768251428626",
+      "createdAt": "2026-01-12T21:25:48.890Z",
+      "updatedAt": "2026-01-12T21:25:56.498Z"
+    },
+    {
+      "id": "1768341998967",
+      "name": "vcvcv",
+      "description": "asdas",
+      "status": "En Progreso",
+      "priority": "medium",
+      "userId": "1768350307034",
+      "createdAt": "2026-01-13T22:06:38.967Z",
+      "updatedAt": "2026-01-14T00:27:03.578Z"
+    },
+    {
+      "id": "1768350332798",
+      "name": "lasy",
+      "description": "lasy",
+      "status": "pendiente",
+      "priority": "medium",
+      "userId": "1768350307034",
+      "createdAt": "2026-01-14T00:25:32.798Z",
+      "updatedAt": "2026-01-14T00:25:32.798Z"
+    },
+    {
+      "id": "1768423107005",
+      "name": "dasdasd",
+      "description": "asassa",
+      "status": "Completada",
+      "priority": "medium",
+      "userId": "1768423084770",
+      "createdAt": "2026-01-14T20:38:27.005Z",
+      "updatedAt": "2026-05-04T21:53:02.224Z"
+    }
+  ]
+}

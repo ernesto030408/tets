@@ -1,0 +1,78 @@
+<mat-toolbar class="navbar" color="primary">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <mat-icon class="brand-icon">dashboard</mat-icon>
+      <h1>Sistema de Gestión</h1>
+    </div>
+    
+    <div class="navbar-menu">
+      @if (rol === 'Admin') {
+        <a 
+          mat-button 
+          routerLink="users" 
+          routerLinkActive="active-link" 
+          [routerLinkActiveOptions]="{exact: true}"
+          class="nav-link">
+          <mat-icon>people</mat-icon>
+          <span>Usuarios</span>
+        </a>
+      }
+      
+      <a 
+        mat-button 
+        routerLink="tasks" 
+        routerLinkActive="active-link"
+        class="nav-link">
+        <mat-icon>task_alt</mat-icon>
+        <span>Tareas</span>
+      </a>
+      
+      <button 
+        mat-raised-button 
+        class="btn-logout"
+        (click)="logOut()"
+        matTooltip="Cerrar sesión">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+
+    <!-- Menu móvil -->
+    <button 
+      mat-icon-button 
+      class="mobile-menu-button"
+      [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" class="mobile-menu">
+      @if (rol === 'Admin') {
+        <button 
+          mat-menu-item 
+          routerLink="users"
+          routerLinkActive="active-menu-item"
+          [routerLinkActiveOptions]="{exact: true}">
+          <mat-icon>people</mat-icon>
+          <span>Usuarios</span>
+        </button>
+      }
+      
+      <button 
+        mat-menu-item 
+        routerLink="tasks"
+        routerLinkActive="active-menu-item">
+        <mat-icon>task_alt</mat-icon>
+        <span>Tareas</span>
+      </button>
+      
+      <mat-divider></mat-divider>
+      
+      <button 
+        mat-menu-item 
+        (click)="logOut()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
